@@ -5,7 +5,7 @@
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-card class="box-card">
+    <el-card>
       <el-row :gutter="20">
         <el-col :span="8">
           <el-input placeholder="请输入内容" v-model="searchUser" clearable @clear="getUserList()">
@@ -28,7 +28,7 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="150px">
           <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" circle size="small" @click="showEditDialog(scope.row.id)"></el-button>
               <el-button type="danger" icon="el-icon-delete" circle size="small" @click="removeUserById(scope.row.id)"></el-button>
@@ -97,7 +97,7 @@ export default {
     var checkUser = async (rule, value, callback) => {
       this.queryInfo.query = value
       const { data: res } = await this.$http.get('users', { params: this.queryInfo })
-      const uRes = res.data.users.some(item => {
+      const uRes = await res.data.users.some(item => {
         return item.username === value
       })
       if (uRes) {
@@ -151,7 +151,7 @@ export default {
           {
             min: 6,
             max: 15,
-            message: '用户名的长度在6~15个字符之间',
+            message: '密码的长度在6~15个字符之间',
             trigger: 'blur'
           }
         ],

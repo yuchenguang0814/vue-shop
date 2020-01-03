@@ -19,3 +19,9 @@ html,body,#app {
 .el-pagination {
 	margin-top: 15px;
 }
+.el-cascader__dropdown {
+	top:0 !important;
+}
+.el-cascader-menu__wrap {
+	height: 60% !important;
+}

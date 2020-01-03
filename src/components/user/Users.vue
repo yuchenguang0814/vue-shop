@@ -105,7 +105,7 @@
         </div>
         <span slot="footer" class="dialog-footer">
           <el-button @click="setRoleDialogVisible = false">取 消</el-button>
-          <el-button type="primary">确 定</el-button>
+          <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -301,7 +301,18 @@ export default {
       this.setRoleDialogVisible = true
     },
     setRoleDialogVisibleClose () {
+      this.selectRoleId = ''
+      this.userInfo = {}
+    },
+    async saveRoleInfo () {
+      if (!this.selectRoleId) {
+        return this.$message.error('请选择分配的角色')
+      }
+      const { data: res } = await this.$http.put(`users/${this.userInfo.id}/role`, { rid: this.selectRoleId })
+      if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+      this.$message.success('更新角色成功')
       this.setRoleDialogVisible = false
+      this.getUserList()
     }
   }
 }

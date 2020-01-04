@@ -136,11 +136,30 @@ export default {
     },
     addCateDialogVisibleClosed () {
       this.$refs.addCateFormRef.resetFields()
+      this.selectedKeys = []
+      this.addCateForm.cat_pid = 0
+      this.addCateForm.cat_level = 0
     },
     parentCateChanged () {
-      console.log(11)
+      if (this.selectedKeys.length > 0) {
+        this.addCateForm.cat_pid = this.selectedKeys[this.selectedKeys.length - 1]
+        this.addCateForm.cat_level = this.selectedKeys.length
+        return false
+      } else {
+        this.addCateForm.cat_pid = 0
+        this.addCateForm.cat_level = 0
+      }
     },
-    addCateInfo () {}
+    addCateInfo () {
+      this.$refs.addCateFormRef.validate(async valid => {
+        if (!valid) return
+        const { data: res } = await this.$http.post('categories', this.addCateForm)
+        if (res.meta.status !== 201) return this.$message.error('添加分类失败')
+        this.$message.success(res.meta.msg)
+        this.addCateDialogVisible = false
+        this.getCateList()
+      })
+    }
   }
 }
 </script>

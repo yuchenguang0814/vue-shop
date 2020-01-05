@@ -22,3 +22,7 @@ html,body,#app {
 .el-scrollbar__wrap {
 	height: 400px !important;
 }
+.el-steps {
+	margin: 15px 0;
+	font-size: 13px;
+}

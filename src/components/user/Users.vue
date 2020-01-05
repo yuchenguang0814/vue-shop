@@ -213,7 +213,6 @@ export default {
       } else {
         this.queryInfo.query = ''
       }
-      this.queryInfo.query = ''
       const { data: res } = await this.$http.get('users', { params: this.queryInfo })
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.userlist = res.data.users

@@ -181,7 +181,6 @@ export default {
       const filePath = file.response.data.tmp_path
       const index = this.addForm.pics.findIndex(x => x.pic === filePath)
       this.addForm.pics.splice(index, 1)
-      console.log(this.addForm.pics)
     },
     async addGood () {
       const form = _.cloneDeep(this.addForm)
